@@ -1,18 +1,11 @@
 package sunshine.lucidman.net.mysunshine;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import sunshine.lucidman.net.mysunshine.fragment.ForecastFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,18 +16,33 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        // Inflate the main; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+/*
     public static class PlaceholderFragment extends Fragment {
 
         ArrayAdapter<String> mForecastAdapter;
@@ -59,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
             mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, data);
 
+            View rootView = (View) inflater.inflate(R.layout.fragment_main, container, false);
 
-            return super.onCreateView(inflater, container, savedInstanceState);
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+            listView.setAdapter(mForecastAdapter);
+
+            return rootView;
         }
-    }
+    }*/
 }
